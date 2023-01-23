@@ -181,8 +181,8 @@ orleans.codegen.cs
 
 /node_modules
 
-/HotelReservationApp/ClientApp/node_modules/
-/HotelReservationApp/ClientApp/.angular/
+HotelReservationApp/ClientApp/node_modules/
+HotelReservationApp/ClientApp/.angular/
 
 # RIA/Silverlight projects
 Generated_Code/
