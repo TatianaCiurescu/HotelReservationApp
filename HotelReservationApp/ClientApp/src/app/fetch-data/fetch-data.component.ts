@@ -1,23 +1,33 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { DataService } from '../services/data-service';
+import { Contact } from './contact';
 
 @Component({
   selector: 'app-fetch-data',
+  styleUrls: ['fetch-data.css'],
   templateUrl: './fetch-data.component.html'
 })
-export class FetchDataComponent {
-  public forecasts: WeatherForecast[] = [];
+export class FetchDataComponent implements OnInit {
+    displayedColumns: string[] = ['phone', 'name', 'email', 'website', 'address'];
+    dataSource: MatTableDataSource<Contact>;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
-      this.forecasts = result;
-    }, error => console.error(error));
-  }
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
+    constructor(private dataService: DataService) { }
+
+    ngOnInit() {
+        this.dataService.fetchPosts().subscribe(contacts => {
+            this.dataSource = new MatTableDataSource(contacts);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+        });
+    }
 }
 
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
+
+
