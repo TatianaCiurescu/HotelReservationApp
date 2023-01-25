@@ -1,4 +1,5 @@
 ﻿using HotelReservationApp.Models;
+using HotelReservationApp.Repos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservationApp.Controllers
@@ -7,29 +8,44 @@ namespace HotelReservationApp.Controllers
     [Route("[controller]")]
     public class ReservationController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+        private readonly IReservationRepository _reservationRepository;
+        public ReservationController(IReservationRepository reservationRepository)
         {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+            _reservationRepository= reservationRepository;  
+        }
 
         [HttpGet]
-        public ReservationResponse Get([FromQuery]int pageNumber, [FromQuery] int pageSize)
+        public async Task<ReservationResponse> Get([FromQuery]int pageNumber, [FromQuery] int pageSize)
         {
             
-              var tableData =  Enumerable.Range(1, 25).Select(index => new Reservation
-            {
-                CheckIn = DateTime.UtcNow,
-                CheckOut = DateTime.UtcNow,
-                Id = Random.Shared.Next(-20, 55),
-                FirstName = Summaries[Random.Shared.Next(Summaries.Length)],
-                LastName = Summaries[Random.Shared.Next(Summaries.Length)],
-                Cnp = "1930726410045",
-                Phone = Random.Shared.Next(-20, 55),
-                RoomNo = Random.Shared.Next(-20, 55)
-            })
-            .ToArray();
+              var tableData = await _reservationRepository.GetPaginated(pageSize, pageNumber);
 
-            return new ReservationResponse { Data = tableData.Skip((pageNumber-1)*pageSize).Take(pageSize), Total = tableData.Length};
+            return tableData;
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody]Reservation newReservation) 
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);  
+            }
+            var addedReservation = _reservationRepository.Add(newReservation);
+            return CreatedAtAction("Get", new { id = addedReservation.Id, addedReservation });
+        }
+
+        [HttpPut]
+        public IActionResult Put([FromBody]Reservation reservationToUpdate)
+        {
+            _reservationRepository.Update(reservationToUpdate);
+            return Ok(reservationToUpdate);
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(Reservation reservationToDelete)
+        {
+            _reservationRepository.Delete(reservationToDelete);
+            return Ok();   
         }
     }
 }

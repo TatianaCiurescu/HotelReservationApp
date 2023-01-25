@@ -6,7 +6,11 @@ namespace HotelReservationApp.Models
     {
         [Required]
         public int Id { get; set; }
+        [Required]
+        [MinLength(4)]
         public string FirstName { get; set; }
+        [Required]
+        [MinLength(4)]
         public string LastName { get; set; }
         
         [Required]
