@@ -1,7 +1,7 @@
 export interface Reservation {
   id: number,
-  firstname: string,
-  lastname: string,
+  firstName: string,
+  lastName: string,
   cnp: string,
   phone: number,
   roomNo: number,

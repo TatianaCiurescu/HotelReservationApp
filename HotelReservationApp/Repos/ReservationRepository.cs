@@ -34,9 +34,10 @@ namespace HotelReservationApp.Repos
             _context.SaveChanges();
         }
 
-        public void Delete(Reservation reservationToDelete) 
+        public void Delete(int id) 
         {
-            var deletedReservation = _context.Reservations.Remove(reservationToDelete);
+            var reservationToDelete = _context.Reservations.Find(id);
+            _context.Reservations.Remove(reservationToDelete);
             _context.SaveChanges();
         }
 
