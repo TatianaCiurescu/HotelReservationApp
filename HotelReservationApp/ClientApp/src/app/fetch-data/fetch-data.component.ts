@@ -2,11 +2,15 @@ import { Component } from '@angular/core';
 import { OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../services/data-service';
 import { Reservation, ReservationTable } from './reservation';
+import { AddDialogComponent } from './add/add.component';
 
-import { merge, Observable, of as observableOf, pipe } from 'rxjs';
+import { Observable, of as observableOf} from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { DeleteDialogComponent } from './delete/delete.component';
+import { EditDialogComponent } from './edit/edit.component';
 
 @Component({
   selector: 'app-fetch-data',
@@ -14,7 +18,7 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
   templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent implements OnInit {
-  displayedColumns: string[] = ['Id', 'LastName', 'FirstName', 'Cnp', 'Phone', 'RoomNo', 'CheckIn', 'CheckOut'];
+  displayedColumns: string[] = ['Id', 'LastName', 'FirstName', 'Cnp', 'Phone', 'RoomNo', 'CheckIn', 'CheckOut', 'actions'];
 
     reservationTable: ReservationTable;
     totalData: number;
@@ -27,7 +31,7 @@ export class FetchDataComponent implements OnInit {
 
   @ViewChild('paginator') paginator: MatPaginator;
 
-    constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, public dialogService: MatDialog) { }
 
   getTableData$(pageNumber: Number, pageSize: Number) {
     return this.dataService.getReservations(pageNumber, pageSize);
@@ -60,6 +64,43 @@ export class FetchDataComponent implements OnInit {
   }
 
   ngOnInit(): void { }
+
+  openAddDialog() {
+    const dialogRef = this.dialogService.open(AddDialogComponent, {
+      data: { }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        // After dialog is closed we're doing frontend updates
+        // For add we're just pushing a new row inside DataService
+        this.ngAfterViewInit();
+      }
+    });
+};
+
+  startEdit(element: Reservation) {
+    var data = element;
+    const dialogRef = this.dialogService.open(EditDialogComponent, {
+      data
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        this.ngAfterViewInit();
+      }
+    });
+  };
+
+  deleteItem(element: Reservation) {
+    var data = element;
+    const dialogRef = this.dialogService.open(DeleteDialogComponent, { data }); 
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        this.ngAfterViewInit();
+      }
+    });
+};
 }
 
 

@@ -26,10 +26,6 @@ namespace HotelReservationApp.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]Reservation newReservation) 
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);  
-            }
             var addedReservation = _reservationRepository.Add(newReservation);
             return CreatedAtAction("Get", new { id = addedReservation.Id, addedReservation });
         }
@@ -42,9 +38,9 @@ namespace HotelReservationApp.Controllers
         }
 
         [HttpDelete]
-        public IActionResult Delete(Reservation reservationToDelete)
+        public IActionResult Delete([FromQuery] int id)
         {
-            _reservationRepository.Delete(reservationToDelete);
+            _reservationRepository.Delete(id);
             return Ok();   
         }
     }
