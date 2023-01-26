@@ -56,11 +56,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DeleteDialogComponent } from './booking/delete/delete.component';
 import { EditDialogComponent } from './booking/edit/edit.component';
 
-import {
-  NgxMatDatetimePickerModule,
-  NgxMatNativeDateModule,
-  NgxMatTimepickerModule
-} from '@angular-material-components/datetime-picker';
 
 
 @NgModule({
@@ -75,9 +70,6 @@ import {
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
     HttpClientModule,
     A11yModule,
     CdkStepperModule,

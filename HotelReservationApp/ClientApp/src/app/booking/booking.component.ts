@@ -74,7 +74,7 @@ export class BookingComponent implements OnInit {
       if (result === 1) {
         // After dialog is closed we're doing frontend updates
         // For add we're just pushing a new row inside DataService
-        this.ngAfterViewInit();
+        this.refreshTable();
       }
     });
 };
@@ -86,7 +86,7 @@ export class BookingComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        this.ngAfterViewInit();
+        this.refreshTable();
       }
     });
   };
@@ -97,10 +97,18 @@ export class BookingComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        this.ngAfterViewInit();
+        var refToThis = this;
+        setTimeout(function () {
+          refToThis.refreshTable();
+        }, 1000);
+        
       }
     });
-};
+  };
+
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
+  }
 }
 
 

@@ -7,6 +7,6 @@ namespace HotelReservationApp.Repos
         Task<ReservationResponse> GetPaginated(int pageSize, int pageNumber);
         Reservation Add(Reservation newReservation);
         void Update(Reservation reservationToUpdate);
-        void Delete(int id);
+        Task Delete(int id);
     }
 }
