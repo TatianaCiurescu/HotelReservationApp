@@ -22,6 +22,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
@@ -55,6 +56,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DeleteDialogComponent } from './booking/delete/delete.component';
 import { EditDialogComponent } from './booking/edit/edit.component';
 
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +75,9 @@ import { EditDialogComponent } from './booking/edit/edit.component';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
     HttpClientModule,
     A11yModule,
     CdkStepperModule,
@@ -115,6 +126,7 @@ import { EditDialogComponent } from './booking/edit/edit.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'booking', component: BookingComponent },
     ]),
+    
     BrowserAnimationsModule
   ],
   providers: [],
