@@ -6,8 +6,8 @@ import { DataService } from '../../services/data-service';
 
 @Component({
   selector: 'edit',
-  templateUrl: '../../fetch-data/edit/edit.component.html',
-  styleUrls: ['../../fetch-data/edit/edit.component.css']
+  templateUrl: '../../booking/edit/edit.component.html',
+  styleUrls: ['../../booking/edit/edit.component.css']
 })
 export class EditDialogComponent {
 

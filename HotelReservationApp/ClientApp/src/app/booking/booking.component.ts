@@ -13,11 +13,11 @@ import { DeleteDialogComponent } from './delete/delete.component';
 import { EditDialogComponent } from './edit/edit.component';
 
 @Component({
-  selector: 'app-fetch-data',
-  styleUrls: ['fetch-data.css'],
-  templateUrl: './fetch-data.component.html'
+  selector: 'app-booking',
+  styleUrls: ['booking.component.css'],
+  templateUrl: './booking.component.html'
 })
-export class FetchDataComponent implements OnInit {
+export class BookingComponent implements OnInit {
   displayedColumns: string[] = ['Id', 'LastName', 'FirstName', 'Cnp', 'Phone', 'RoomNo', 'CheckIn', 'CheckOut', 'actions'];
 
     reservationTable: ReservationTable;

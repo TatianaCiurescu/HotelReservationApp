@@ -6,8 +6,8 @@ import { DataService } from '../../services/data-service';
 
 @Component({
   selector: 'add',
-  templateUrl: '../../fetch-data/add/add.component.html',
-  styleUrls: ['../../fetch-data/add/add.component.css']
+  templateUrl: '../../booking/add/add.component.html',
+  styleUrls: ['../../booking/add/add.component.css']
 })
 
 export class AddDialogComponent {

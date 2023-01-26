@@ -6,8 +6,8 @@ import { Reservation } from '../reservation';
 
 @Component({
   selector: 'delete',
-  templateUrl: '../../fetch-data/delete/delete.component.html',
-  styleUrls: ['../../fetch-data/delete/delete.component.css']
+  templateUrl: '../../booking/delete/delete.component.html',
+  styleUrls: ['../../booking/delete/delete.component.css']
 })
 export class DeleteDialogComponent {
 
