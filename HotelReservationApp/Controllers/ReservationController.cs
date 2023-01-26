@@ -38,9 +38,9 @@ namespace HotelReservationApp.Controllers
         }
 
         [HttpDelete]
-        public IActionResult Delete([FromQuery] int id)
+        public async Task<IActionResult> Delete([FromQuery] int id)
         {
-            _reservationRepository.Delete(id);
+             await _reservationRepository.Delete(id);
             return Ok();   
         }
     }

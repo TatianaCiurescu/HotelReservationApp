@@ -34,11 +34,11 @@ namespace HotelReservationApp.Repos
             _context.SaveChanges();
         }
 
-        public void Delete(int id) 
+        public async Task Delete(int id) 
         {
-            var reservationToDelete = _context.Reservations.Find(id);
+            var reservationToDelete = await _context.Reservations.FindAsync(id);
             _context.Reservations.Remove(reservationToDelete);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ReservationTable, Reservation } from '../fetch-data/reservation';
+import { ReservationTable, Reservation } from '../booking/reservation';
 import { Inject } from '@angular/core';
 
 

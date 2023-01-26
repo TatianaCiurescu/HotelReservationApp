@@ -13,11 +13,11 @@ import { DeleteDialogComponent } from './delete/delete.component';
 import { EditDialogComponent } from './edit/edit.component';
 
 @Component({
-  selector: 'app-fetch-data',
-  styleUrls: ['fetch-data.css'],
-  templateUrl: './fetch-data.component.html'
+  selector: 'app-booking',
+  styleUrls: ['booking.component.css'],
+  templateUrl: './booking.component.html'
 })
-export class FetchDataComponent implements OnInit {
+export class BookingComponent implements OnInit {
   displayedColumns: string[] = ['Id', 'LastName', 'FirstName', 'Cnp', 'Phone', 'RoomNo', 'CheckIn', 'CheckOut', 'actions'];
 
     reservationTable: ReservationTable;
@@ -74,7 +74,7 @@ export class FetchDataComponent implements OnInit {
       if (result === 1) {
         // After dialog is closed we're doing frontend updates
         // For add we're just pushing a new row inside DataService
-        this.ngAfterViewInit();
+        this.refreshTable();
       }
     });
 };
@@ -86,7 +86,7 @@ export class FetchDataComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        this.ngAfterViewInit();
+        this.refreshTable();
       }
     });
   };
@@ -97,10 +97,18 @@ export class FetchDataComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        this.ngAfterViewInit();
+        var refToThis = this;
+        setTimeout(function () {
+          refToThis.refreshTable();
+        }, 1000);
+        
       }
     });
-};
+  };
+
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
+  }
 }
 
 
